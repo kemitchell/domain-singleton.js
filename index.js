@@ -100,11 +100,12 @@ module.exports = function (options) {
     var bidDelay = bidPriority() * BID_DELAY
     bidTimeout = setTimeout(function () {
       emit({event: BID, id: OUR_INSTANCE_ID})
+      var confirmDelay = 4 * BID_DELAY
       confirmTimeout = setTimeout(function () {
         appointed = OUR_INSTANCE_ID
         log('confirmed')
         onAppointed()
-      }, BID_DELAY)
+      }, confirmDelay)
     }, bidDelay)
   }
 

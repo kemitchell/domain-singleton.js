@@ -1,7 +1,7 @@
 {
   "name": "domain-singleton",
   "description": "appoint one page or frame on a domain to handle a task",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
   "dependencies": {
     "cuid": "^2.1.0",

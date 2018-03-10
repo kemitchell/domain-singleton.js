@@ -57,7 +57,6 @@ module.exports = function (options) {
 
       // Do not process our own messages.
       if (theirID === OUR_INSTANCE_ID) return
-      log('received: %o', data)
 
       if (event === LOADED && theirID) {
         if (!loadedInstanceIDs.has(theirID)) {

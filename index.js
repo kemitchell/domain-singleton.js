@@ -89,7 +89,7 @@ module.exports = function (options) {
   bidForAppointment()
 
   function emit (data) {
-    log('sending: %o', OUR_INSTANCE_ID, data.event)
+    log('sending: %o', data.event)
     bus.emit(task, data)
   }
 

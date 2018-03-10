@@ -59,7 +59,7 @@ module.exports = function (options) {
       // Do not process our own messages.
       if (theirID === OUR_INSTANCE_ID) return
 
-      if (event === LOADED && theirID) {
+      if (event === LOADED) {
         if (!loadedInstanceIDs.has(theirID)) {
           log('loaded: %o', theirID)
           loadedInstanceIDs.add(theirID)
@@ -70,7 +70,7 @@ module.exports = function (options) {
           }
           emit({event: LOADED, id: OUR_INSTANCE_ID})
         }
-      } else if (event === UNLOADED && theirID) {
+      } else if (event === UNLOADED) {
         log('unloaded: %o', theirID)
         loadedInstanceIDs.delete(theirID)
         if (leader === theirID) {

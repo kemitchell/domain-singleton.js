@@ -38,7 +38,7 @@ module.exports = function (options) {
   })
 
   var loadedInstanceIDs = new Set()
-  var appointed = null
+  var leader = null
   // Timeout for sending a BID event.
   var bidTimeout = null
   // Timeout for confirming that our BID event was successful.
@@ -65,7 +65,7 @@ module.exports = function (options) {
           loadedInstanceIDs.add(theirID)
           // If this instance is currently appointed,
           // broadcast that fact.
-          if (appointed === OUR_INSTANCE_ID) {
+          if (leader === OUR_INSTANCE_ID) {
             emit({event: BID, id: OUR_INSTANCE_ID})
           }
           emit({event: LOADED, id: OUR_INSTANCE_ID})
@@ -73,13 +73,13 @@ module.exports = function (options) {
       } else if (event === UNLOADED && theirID) {
         log('unloaded: %o', theirID)
         loadedInstanceIDs.delete(theirID)
-        if (appointed === theirID) {
-          appointed = null
+        if (leader === theirID) {
+          leader = null
           bidForAppointment()
         }
       } else if (event === BID) {
         log('bid: %o', theirID)
-        appointed = theirID
+        leader = theirID
         clearTimeout(bidTimeout)
         clearTimeout(confirmTimeout)
       }
@@ -88,7 +88,7 @@ module.exports = function (options) {
   emit({event: LOADED, id: OUR_INSTANCE_ID})
 
   setTimeout(function () {
-    if (appointed === null) bidForAppointment()
+    if (leader === null) bidForAppointment()
   }, INITIAL_DELAY)
 
   function emit (data) {
@@ -102,7 +102,7 @@ module.exports = function (options) {
       emit({event: BID, id: OUR_INSTANCE_ID})
       var confirmDelay = 4 * BID_DELAY
       confirmTimeout = setTimeout(function () {
-        appointed = OUR_INSTANCE_ID
+        leader = OUR_INSTANCE_ID
         log('confirmed')
         onAppointed()
       }, confirmDelay)

@@ -44,50 +44,49 @@ module.exports = function (options) {
   // Timeout for confirming that our BID event was successful.
   var confirmTimeout = null
 
-  bus
-    .on(task, function (data) {
-      assert(typeof data, 'object')
+  bus.on(task, function (data) {
+    assert(typeof data, 'object')
 
-      var event = data.event
-      assert(event)
-      assert([LOADED, UNLOADED, BID].includes(event))
+    var event = data.event
+    assert(event)
+    assert([LOADED, UNLOADED, BID].includes(event))
 
-      var theirID = data.id
-      assert.equal(typeof theirID, 'string')
-      assert(theirID.length !== 0)
+    var theirID = data.id
+    assert.equal(typeof theirID, 'string')
+    assert(theirID.length !== 0)
 
-      // Do not process our own messages.
-      if (theirID === OUR_INSTANCE_ID) return
+    // Do not process our own messages.
+    if (theirID === OUR_INSTANCE_ID) return
 
-      switch (event) {
-      case LOADED:
-        if (!loadedInstanceIDs.has(theirID)) {
-          log('loaded: %o', theirID)
-          loadedInstanceIDs.add(theirID)
-          // If this instance is currently appointed,
-          // broadcast that fact.
-          if (leader === OUR_INSTANCE_ID) {
-            emit({event: BID, id: OUR_INSTANCE_ID})
-          }
-          emit({event: LOADED, id: OUR_INSTANCE_ID})
+    switch (event) {
+    case LOADED:
+      if (!loadedInstanceIDs.has(theirID)) {
+        log('loaded: %o', theirID)
+        loadedInstanceIDs.add(theirID)
+        // If this instance is currently appointed,
+        // broadcast that fact.
+        if (leader === OUR_INSTANCE_ID) {
+          emit({event: BID, id: OUR_INSTANCE_ID})
         }
-        break
-      case UNLOADED:
-        log('unloaded: %o', theirID)
-        loadedInstanceIDs.delete(theirID)
-        if (leader === theirID) {
-          leader = null
-          bidForAppointment()
-        }
-        break
-      case BID:
-        log('bid: %o', theirID)
-        leader = theirID
-        clearTimeout(bidTimeout)
-        clearTimeout(confirmTimeout)
-        break
+        emit({event: LOADED, id: OUR_INSTANCE_ID})
       }
-    })
+      break
+    case UNLOADED:
+      log('unloaded: %o', theirID)
+      loadedInstanceIDs.delete(theirID)
+      if (leader === theirID) {
+        leader = null
+        bidForAppointment()
+      }
+      break
+    case BID:
+      log('bid: %o', theirID)
+      leader = theirID
+      clearTimeout(bidTimeout)
+      clearTimeout(confirmTimeout)
+      break
+    }
+  })
 
   emit({event: LOADED, id: OUR_INSTANCE_ID})
 

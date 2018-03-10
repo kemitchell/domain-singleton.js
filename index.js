@@ -62,15 +62,12 @@ module.exports = function (options) {
         if (!loadedInstanceIDs.has(theirID)) {
           log('loaded: %o', theirID)
           loadedInstanceIDs.add(theirID)
-          // If this instance has not seen the newly
-          // loaded instance before, broadcast this
-          // instance's ID.
-          emit({event: LOADED, id: OUR_INSTANCE_ID})
           // If this instance is currently appointed,
           // broadcast that fact.
           if (appointed === OUR_INSTANCE_ID) {
             emit({event: BID, id: OUR_INSTANCE_ID})
           }
+          emit({event: LOADED, id: OUR_INSTANCE_ID})
         }
       } else if (event === UNLOADED && theirID) {
         log('unloaded: %o', theirID)

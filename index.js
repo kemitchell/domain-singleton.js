@@ -59,7 +59,8 @@ module.exports = function (options) {
       // Do not process our own messages.
       if (theirID === OUR_INSTANCE_ID) return
 
-      if (event === LOADED) {
+      switch (event) {
+      case LOADED:
         if (!loadedInstanceIDs.has(theirID)) {
           log('loaded: %o', theirID)
           loadedInstanceIDs.add(theirID)
@@ -70,18 +71,21 @@ module.exports = function (options) {
           }
           emit({event: LOADED, id: OUR_INSTANCE_ID})
         }
-      } else if (event === UNLOADED) {
+        break
+      case UNLOADED:
         log('unloaded: %o', theirID)
         loadedInstanceIDs.delete(theirID)
         if (leader === theirID) {
           leader = null
           bidForAppointment()
         }
-      } else if (event === BID) {
+        break
+      case BID:
         log('bid: %o', theirID)
         leader = theirID
         clearTimeout(bidTimeout)
         clearTimeout(confirmTimeout)
+        break
       }
     })
 

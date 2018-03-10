@@ -12,8 +12,9 @@ var OUR_INSTANCE_ID = cuid().slice(1)
 
 // Delay used to calculate timeouts for bidding
 // and confirming bids to appointment.
-var BID_DELAY = 100
-var INITIAL_DELAY = 4 * BID_DELAY
+var BID_DELAY_INCREMENT = 100
+var INITIAL_BID_DELAY = 4 * BID_DELAY_INCREMENT
+var CONFIRM_DELAY = 4 * BID_DELAY_INCREMENT
 
 // Bus Event Types
 var BID = 'bid'
@@ -92,7 +93,7 @@ module.exports = function (options) {
 
   setTimeout(function () {
     if (leader === null) bidForAppointment()
-  }, INITIAL_DELAY)
+  }, INITIAL_BID_DELAY)
 
   function emit (data) {
     log('sending: %o', data.event)
@@ -100,15 +101,14 @@ module.exports = function (options) {
   }
 
   function bidForAppointment () {
-    var bidDelay = bidPriority() * BID_DELAY
+    var bidDelay = bidPriority() * BID_DELAY_INCREMENT
     bidTimeout = setTimeout(function () {
       emit({event: BID, id: OUR_INSTANCE_ID})
-      var confirmDelay = 4 * BID_DELAY
       confirmTimeout = setTimeout(function () {
         leader = OUR_INSTANCE_ID
         log('confirmed')
         onAppointed()
-      }, confirmDelay)
+      }, CONFIRM_DELAY)
     }, bidDelay)
   }
 

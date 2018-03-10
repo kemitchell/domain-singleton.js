@@ -10,12 +10,6 @@ var bus
 // The unique ID for this instance.
 var OUR_INSTANCE_ID = cuid().slice(1)
 
-// Delay used to calculate timeouts for bidding
-// and confirming bids to appointment.
-var BID_DELAY_INCREMENT = 100
-var INITIAL_BID_DELAY = 4 * BID_DELAY_INCREMENT
-var CONFIRM_DELAY = 4 * BID_DELAY_INCREMENT
-
 // Bus Event Types
 var BID = 'bid'
 var LOADED = 'loaded'
@@ -28,6 +22,18 @@ module.exports = function (options) {
 
   var onAppointed = options.onAppointed
   assert.equal(typeof onAppointed, 'function', 'options.onAppointed must be a function')
+
+  var BID_DELAY_INCREMENT = options.bidDelayIncrement || 100
+  assert.equal(typeof BID_DELAY_INCREMENT, 'number')
+  assert(BID_DELAY_INCREMENT >= 0)
+
+  var INITIAL_BID_DELAY = options.initialBidDelay || (4 * BID_DELAY_INCREMENT)
+  assert.equal(typeof INITIAL_BID_DELAY, 'number')
+  assert(INITIAL_BID_DELAY >= 0)
+
+  var CONFIRM_DELAY = options.confirmDelay || (4 * BID_DELAY_INCREMENT)
+  assert.equal(typeof CONFIRM_DELAY, 'number')
+  assert(CONFIRM_DELAY >= 0)
 
   var dom = options.window || window
 

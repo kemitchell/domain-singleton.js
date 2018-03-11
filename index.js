@@ -2,10 +2,6 @@
 var assert = require('assert')
 var cuid = require('cuid')
 var debug = require('debug')
-var pageBus = require('page-bus')
-
-// Will hold a pageBus instance.
-var bus
 
 // The unique ID for this instance.
 var OUR_INSTANCE_ID = cuid().slice(1)
@@ -35,10 +31,12 @@ module.exports = function (options) {
   assert.equal(typeof CONFIRM_DELAY, 'number')
   assert(CONFIRM_DELAY >= 0)
 
+  var bus = options.bus
+  assert.equal(typeof bus, 'object')
+
   var dom = options.window || window
 
   var log = debug('domain-singleton:' + task)
-  if (!bus) bus = pageBus()
 
   dom.addEventListener('beforeunload', function () {
     emit({event: 'unloaded', id: OUR_INSTANCE_ID})

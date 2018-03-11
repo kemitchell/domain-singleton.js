@@ -2,10 +2,12 @@ appoint one page or frame on a domain to handle a task
 
 ```javascript
 var domainSingleton = require('domain-singleton')
+var pageBus = require('page-bus')
 
 window.addEventListener('DOMContentLoaded', function () {
   domainSingleton({
     task: 'connect-to-peers',
+    bus: pageBus(),
     onAppointed: function () {
       document.body.innerHTML = 'Appointed'
       // ...

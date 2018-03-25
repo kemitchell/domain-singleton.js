@@ -15,5 +15,21 @@
   "repository": "kemitchell/domain-singleton.js",
   "scripts": {
     "build-test": "browserify test.js > browser.js"
-  }
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "licensezero": [
+    {
+      "license": {
+        "jurisdiction": "US-CA",
+        "name": "Kyle E. Mitchell",
+        "projectID": "2f6a59b7-d9fc-469b-8414-660c1a534998",
+        "publicKey": "1589d5a1b9b6b6ca26515b65fe9f725410c9f7fa41bcd9954a84d76f47cc6482",
+        "terms": "reciprocal",
+        "version": "2.0.1",
+        "homepage": "https://www.npmjs.com/package/domain-singleton"
+      },
+      "licensorSignature": "bc611902959116da825ad8aa0517edbdb4c8cfd6264b591ec73b4debbbe9b87029dd09e15d1feb413624361d3e2bb720665f63de8f91b2471689b956a6f7f00c",
+      "agentSignature": "1ba634a195c4628094c02e553228d7e9bd56ec5b602d2798018f5a1e93f2aba9d58f61df6816120d093068a73de9ed0fddb18d67ae4db83c180283bbb91fd505"
+    }
+  ]
 }

@@ -10,11 +10,14 @@
   },
   "devDependencies": {
     "browserify": "^16.1.1",
-    "page-bus": "^3.0.1"
+    "page-bus": "^3.0.1",
+    "standard": "^11.0.1",
+    "standard-markdown": "^4.0.2"
   },
   "repository": "kemitchell/domain-singleton.js",
   "scripts": {
-    "build-test": "browserify test.js > browser.js"
+    "build-test": "browserify test.js > browser.js",
+    "lint": "standard && standard-markdown"
   },
   "license": "SEE LICENSE IN LICENSE",
   "licensezero": [

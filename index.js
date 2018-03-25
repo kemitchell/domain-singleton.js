@@ -64,32 +64,32 @@ module.exports = function (options) {
     if (theirID === OUR_INSTANCE_ID) return
 
     switch (event) {
-    case LOADED:
-      if (!loadedInstanceIDs.has(theirID)) {
-        log('loaded: %o', theirID)
-        loadedInstanceIDs.add(theirID)
-        // If this instance is currently appointed,
-        // broadcast that fact.
-        if (leader === OUR_INSTANCE_ID) {
-          emit({event: BID, id: OUR_INSTANCE_ID})
+      case LOADED:
+        if (!loadedInstanceIDs.has(theirID)) {
+          log('loaded: %o', theirID)
+          loadedInstanceIDs.add(theirID)
+          // If this instance is currently appointed,
+          // broadcast that fact.
+          if (leader === OUR_INSTANCE_ID) {
+            emit({event: BID, id: OUR_INSTANCE_ID})
+          }
+          emit({event: LOADED, id: OUR_INSTANCE_ID})
         }
-        emit({event: LOADED, id: OUR_INSTANCE_ID})
-      }
-      break
-    case UNLOADED:
-      log('unloaded: %o', theirID)
-      loadedInstanceIDs.delete(theirID)
-      if (leader === theirID) {
-        leader = null
-        bidForAppointment()
-      }
-      break
-    case BID:
-      log('bid: %o', theirID)
-      leader = theirID
-      clearTimeout(bidTimeout)
-      clearTimeout(confirmTimeout)
-      break
+        break
+      case UNLOADED:
+        log('unloaded: %o', theirID)
+        loadedInstanceIDs.delete(theirID)
+        if (leader === theirID) {
+          leader = null
+          bidForAppointment()
+        }
+        break
+      case BID:
+        log('bid: %o', theirID)
+        leader = theirID
+        clearTimeout(bidTimeout)
+        clearTimeout(confirmTimeout)
+        break
     }
   })
 

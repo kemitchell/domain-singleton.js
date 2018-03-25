@@ -1,5 +1,7 @@
 appoint one page or frame on a domain to handle a task
 
+# Usage
+
 ```javascript
 var domainSingleton = require('domain-singleton')
 var pageBus = require('page-bus')
@@ -15,6 +17,8 @@ window.addEventListener('DOMContentLoaded', function () {
   })
 })
 ```
+
+# Bundling Notes
 
 This package uses `require('assert')` assertions.  You may like to remove those statements from production bundles with a tool like [unassertify](https://www.npmjs.com/package/unassertify).
 

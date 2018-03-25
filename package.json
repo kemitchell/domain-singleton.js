@@ -3,6 +3,7 @@
   "description": "appoint one page or frame on a domain to handle a task",
   "version": "2.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
+  "homepage": "https://www.npmjs.com/package/domain-singleton",
   "dependencies": {
     "cuid": "^2.1.0",
     "debug": "^3.1.0"

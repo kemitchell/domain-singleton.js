@@ -26,10 +26,10 @@ This package uses [debug](https://www.npmjs.com/package/debug) to log debugging 
 
 # Licensing
 
-This package is to free to use in open source under the terms of the [License Zero Reciprocal Public License](./LICENSE).
+This package is free to use in open source under the terms of the [License Zero Reciprocal Public License](./LICENSE)
 
-Licenses for use in closed and proprietary software are available [via licensezero.com][project].
+Licenses for use in closed software are available [via licensezero.com][project].
 
-[![L0](https://licensezero.com/projects/2f6a59b7-d9fc-469b-8414-660c1a534998/badge.svg)][project]
+[![licensezero.com pricing](https://licensezero.com/projects/2f6a59b7-d9fc-469b-8414-660c1a534998/badge.svg)][project]
 
 [project]: https://licensezero.com/projects/2f6a59b7-d9fc-469b-8414-660c1a534998
